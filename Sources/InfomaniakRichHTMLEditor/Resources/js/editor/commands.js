@@ -83,10 +83,11 @@ function toggleHeading(tag) {
         return;
     }
 
-    // Insert a new empty heading block after the current block and move caret
+    // Insert a new empty heading block after the current block and move caret inside a text node
     const blockElement = getClosestBlockElementFromNode(range.startContainer) || getEditor();
     const newHeading = document.createElement(desiredTag);
-    newHeading.innerHTML = "<br>";
+    const textNode = document.createTextNode("");
+    newHeading.appendChild(textNode);
 
     if (blockElement.nextSibling) {
         blockElement.parentNode.insertBefore(newHeading, blockElement.nextSibling);
@@ -94,7 +95,8 @@ function toggleHeading(tag) {
         blockElement.parentNode.appendChild(newHeading);
     }
 
-    setCaretAtElement(newHeading, 0);
+    // Place caret inside the heading's text node so typing stays within the H tag
+    setCaretAtElement(textNode, 0);
     reportSelectedTextAttributesIfNecessary();
 }
 
