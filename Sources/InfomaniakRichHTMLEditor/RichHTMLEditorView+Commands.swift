@@ -145,31 +145,19 @@ public extension RichHTMLEditorView {
         }
     }
 
-    /// Toggles Heading 1 for the current block. Behaves like bold but applies H1 instead.
+    /// Toggles Heading 1. If selection is collapsed, inserts a new H1 block for subsequent typing.
     func heading1() {
-        if selectedTextAttributes.hasH1 {
-            execCommand(.formatBlock, argument: "<p>")
-        } else {
-            execCommand(.formatBlock, argument: "<h1>")
-        }
+        javaScriptManager.toggleHeading("H1")
     }
 
-    /// Toggles Heading 2 for the current block. Behaves like bold but applies H2 instead.
+    /// Toggles Heading 2. If selection is collapsed, inserts a new H2 block for subsequent typing.
     func heading2() {
-        if selectedTextAttributes.hasH2 {
-            execCommand(.formatBlock, argument: "<p>")
-        } else {
-            execCommand(.formatBlock, argument: "<h2>")
-        }
+        javaScriptManager.toggleHeading("H2")
     }
 
-    /// Toggles Heading 3 for the current block. Behaves like bold but applies H3 instead.
+    /// Toggles Heading 3. If selection is collapsed, inserts a new H3 block for subsequent typing.
     func heading3() {
-        if selectedTextAttributes.hasH3 {
-            execCommand(.formatBlock, argument: "<p>")
-        } else {
-            execCommand(.formatBlock, argument: "<h3>")
-        }
+        javaScriptManager.toggleHeading("H3")
     }
 
     private func execCommand(_ command: ExecCommand, argument: Sendable? = nil) {

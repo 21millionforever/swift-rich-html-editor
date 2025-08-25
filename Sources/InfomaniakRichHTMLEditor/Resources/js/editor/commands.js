@@ -44,3 +44,69 @@ function setReadOnly(isReadOnly) {
     const editor = getEditor();
     editor.contentEditable = !isReadOnly;
 }
+
+/**
+ * Toggles a heading level. When the selection is collapsed and the current
+ * block is not already the desired heading, this inserts a new empty heading
+ * block after the current block and places the caret inside it, so subsequent
+ * typing is formatted as the chosen heading without altering existing text.
+ *
+ * If the selection is not collapsed, applies/removes the heading to/from the
+ * current block using formatBlock.
+ *
+ * @param {string} tag - Heading tag, e.g., "H1", "H2", "H3".
+ */
+function toggleHeading(tag) {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) {
+        return;
+    }
+
+    const range = getRange();
+    const desiredTag = (tag || "").toUpperCase();
+    const currentTag = getCurrentBlockTagName();
+
+    // Multi-range selection: toggle heading on the current block
+    if (!selection.isCollapsed) {
+        if (currentTag === desiredTag) {
+            execCommand("formatBlock", "<p>");
+        } else {
+            execCommand("formatBlock", `<${desiredTag.toLowerCase()}>`);
+        }
+        return;
+    }
+
+    // Collapsed selection
+    if (currentTag === desiredTag) {
+        // Toggle off -> paragraph on current block
+        execCommand("formatBlock", "<p>");
+        return;
+    }
+
+    // Insert a new empty heading block after the current block and move caret
+    const blockElement = getClosestBlockElementFromNode(range.startContainer) || getEditor();
+    const newHeading = document.createElement(desiredTag);
+    newHeading.innerHTML = "<br>";
+
+    if (blockElement.nextSibling) {
+        blockElement.parentNode.insertBefore(newHeading, blockElement.nextSibling);
+    } else {
+        blockElement.parentNode.appendChild(newHeading);
+    }
+
+    setCaretAtElement(newHeading, 0);
+    reportSelectedTextAttributesIfNecessary();
+}
+
+function getClosestBlockElementFromNode(node) {
+    if (!node) { return null; }
+    let el = (node.nodeType === Node.ELEMENT_NODE) ? node : node.parentNode;
+    while (el && el !== document) {
+        const tag = el.tagName;
+        if (["P", "DIV", "H1", "H2", "H3", "H4", "H5", "H6", "LI", "BLOCKQUOTE"].includes(tag)) {
+            return el;
+        }
+        el = el.parentNode;
+    }
+    return null;
+}

@@ -84,6 +84,11 @@ final class JavaScriptManager {
         evaluateWhenDOMIsReady(function: setReadOnly)
     }
 
+    func toggleHeading(_ tag: String) {
+        let function = JavaScriptFunction.toggleHeading(tag: tag)
+        evaluate(function: function)
+    }
+
     private func evaluateWaitingFunctions() {
         guard isDOMContentLoaded else {
             return
