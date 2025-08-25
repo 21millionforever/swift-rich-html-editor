@@ -57,6 +57,9 @@ function setReadOnly(isReadOnly) {
  * @param {string} tag - Heading tag, e.g., "H1", "H2", "H3".
  */
 function toggleHeading(tag) {
+    // Ensure the editor has focus so selection operations apply correctly
+    try { focus(); } catch (_) {}
+
     const selection = window.getSelection();
     if (!selection || selection.rangeCount === 0) {
         return;
@@ -83,20 +86,46 @@ function toggleHeading(tag) {
         return;
     }
 
-    // Insert a new empty heading block after the current block and move caret inside a text node
-    const blockElement = getClosestBlockElementFromNode(range.startContainer) || getEditor();
+    // Insert a new empty heading block and move caret inside a text node.
+    // If the closest block is the editor itself (empty editor) insert INSIDE the editor.
+    const editor = getEditor();
+    const blockElement = getClosestBlockElementFromNode(range.startContainer) || editor;
     const newHeading = document.createElement(desiredTag);
     const textNode = document.createTextNode("");
     newHeading.appendChild(textNode);
 
-    if (blockElement.nextSibling) {
-        blockElement.parentNode.insertBefore(newHeading, blockElement.nextSibling);
+    if (blockElement === editor) {
+        // Insert inside the editor at the caret position if possible, otherwise append
+        let insertIndex = 0;
+        if (range.startContainer === editor) {
+            insertIndex = Math.min(range.startOffset, editor.childNodes.length);
+        } else {
+            // Find the closest direct child of editor that contains the caret
+            let node = range.startContainer.nodeType === Node.ELEMENT_NODE ? range.startContainer : range.startContainer.parentNode;
+            let directChild = node;
+            while (directChild && directChild.parentNode !== editor) {
+                directChild = directChild.parentNode;
+            }
+            if (directChild && directChild.parentNode === editor) {
+                insertIndex = Array.prototype.indexOf.call(editor.childNodes, directChild) + 1;
+            } else {
+                insertIndex = editor.childNodes.length;
+            }
+        }
+        const refNode = editor.childNodes[insertIndex] || null;
+        editor.insertBefore(newHeading, refNode);
     } else {
-        blockElement.parentNode.appendChild(newHeading);
+        if (blockElement.nextSibling) {
+            blockElement.parentNode.insertBefore(newHeading, blockElement.nextSibling);
+        } else {
+            blockElement.parentNode.appendChild(newHeading);
+        }
     }
 
     // Place caret inside the heading's text node so typing stays within the H tag
     setCaretAtElement(textNode, 0);
+    // Mark that the next input should enforce this heading on the editing engine
+    try { window._ikPendingHeadingTag = desiredTag; } catch (_) {}
     reportSelectedTextAttributesIfNecessary();
 }
 
