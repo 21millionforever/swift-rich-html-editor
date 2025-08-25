@@ -93,6 +93,13 @@ function computeHeadingStates() {
         return { h1: false, h2: false, h3: false };
     }
 
+    // Check if we have a pending heading format (like how bold works)
+    if (typeof nextHeadingFormat !== 'undefined' && nextHeadingFormat) {
+        const states = { h1: false, h2: false, h3: false };
+        states[nextHeadingFormat] = true;
+        return states;
+    }
+
     const range = selection.getRangeAt(0);
     let element = range.startContainer;
     

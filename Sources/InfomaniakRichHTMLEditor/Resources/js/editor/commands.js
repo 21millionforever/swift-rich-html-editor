@@ -45,9 +45,11 @@ function setReadOnly(isReadOnly) {
     editor.contentEditable = !isReadOnly;
 }
 
+// Track the next formatting state for headings (like how bold works)
+let nextHeadingFormat = null;
+
 /**
- * Toggles heading formatting for future typing at insertion point.
- * Like bold, this only affects new text being typed, not existing text.
+ * Toggles heading formatting like bold - tracks state for future typing without changing existing text.
  *
  * @param {string} headingTag - The heading tag (h1, h2, or h3)
  */
@@ -59,18 +61,22 @@ function toggleHeading(headingTag) {
     
     // Only work at insertion point (no selection)
     if (!range.collapsed) {
-        // If there's a selection, do nothing to avoid modifying existing text
         return;
     }
 
     const currentHeading = getCurrentHeading(range);
+    const targetTag = headingTag.toLowerCase();
     
-    if (currentHeading && currentHeading.toLowerCase() === headingTag.toLowerCase()) {
-        // Toggle off - create a new paragraph for future typing
-        insertNewParagraphForTyping();
+    // Toggle the next heading format state
+    if (nextHeadingFormat === targetTag) {
+        // Toggle off
+        nextHeadingFormat = null;
+    } else if (currentHeading === targetTag) {
+        // We're in this heading type, toggle off
+        nextHeadingFormat = null;
     } else {
-        // Toggle on - create a new heading for future typing
-        insertNewHeadingForTyping(headingTag);
+        // Toggle on
+        nextHeadingFormat = targetTag;
     }
     
     reportSelectedTextAttributesIfNecessary();
@@ -82,12 +88,10 @@ function toggleHeading(headingTag) {
 function getCurrentHeading(range) {
     let element = range.startContainer;
     
-    // If it's a text node, get its parent element
     if (element.nodeType === Node.TEXT_NODE) {
         element = element.parentElement;
     }
 
-    // Walk up the DOM tree to find heading elements
     while (element && element !== getEditor()) {
         const tagName = element.tagName ? element.tagName.toLowerCase() : '';
         if (tagName.match(/^h[1-6]$/)) {
@@ -95,78 +99,66 @@ function getCurrentHeading(range) {
         }
         element = element.parentElement;
     }
-
     return null;
 }
 
 /**
- * Creates a new paragraph at cursor position for future typing
+ * Handle keydown events to apply heading formatting when user starts typing
  */
-function insertNewParagraphForTyping() {
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
+function handleHeadingFormatOnType(event) {
+    // Clear heading format on navigation keys
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || 
+        event.key === 'ArrowUp' || event.key === 'ArrowDown' ||
+        event.key === 'Home' || event.key === 'End' ||
+        event.key === 'PageUp' || event.key === 'PageDown') {
+        nextHeadingFormat = null;
+        reportSelectedTextAttributesIfNecessary();
+        return;
+    }
     
-    // Create a new paragraph element
-    const newP = document.createElement('p');
-    newP.innerHTML = '<br>'; // Needed for cursor placement
+    if (!nextHeadingFormat) return;
     
-    // Insert the paragraph after current position
-    insertElementAtCursor(newP);
-    
-    // Place cursor at the beginning of the new paragraph
-    const newRange = document.createRange();
-    newRange.setStart(newP, 0);
-    newRange.collapse(true);
-    selection.removeAllRanges();
-    selection.addRange(newRange);
+    // Only apply on actual character input (not control keys)
+    if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
+        const selection = window.getSelection();
+        if (!selection.rangeCount) return;
+        
+        const range = selection.getRangeAt(0);
+        if (!range.collapsed) return;
+        
+        // Create a new heading element
+        const headingElement = document.createElement(nextHeadingFormat);
+        headingElement.textContent = event.key;
+        
+        // Insert the heading at cursor position
+        range.deleteContents();
+        range.insertNode(headingElement);
+        
+        // Position cursor after the typed character
+        const newRange = document.createRange();
+        newRange.setStart(headingElement.firstChild, 1);
+        newRange.collapse(true);
+        
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+        
+        // Clear the formatting state
+        nextHeadingFormat = null;
+        
+        // Prevent default typing behavior
+        event.preventDefault();
+        
+        // Report the change
+        reportSelectedTextAttributesIfNecessary();
+    }
 }
 
 /**
- * Creates a new heading at cursor position for future typing
+ * Clear heading format state on cursor movement
  */
-function insertNewHeadingForTyping(headingTag) {
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    
-    // Create a new heading element
-    const newHeading = document.createElement(headingTag);
-    newHeading.innerHTML = '<br>'; // Needed for cursor placement
-    
-    // Insert the heading after current position
-    insertElementAtCursor(newHeading);
-    
-    // Place cursor at the beginning of the new heading
-    const newRange = document.createRange();
-    newRange.setStart(newHeading, 0);
-    newRange.collapse(true);
-    selection.removeAllRanges();
-    selection.addRange(newRange);
-}
-
-/**
- * Helper function to insert an element at the current cursor position
- */
-function insertElementAtCursor(element) {
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    
-    // Find the current block element (p, h1, h2, etc.)
-    let currentBlock = range.startContainer;
-    if (currentBlock.nodeType === Node.TEXT_NODE) {
-        currentBlock = currentBlock.parentElement;
-    }
-    
-    // Keep going up until we find a block-level element
-    while (currentBlock && currentBlock !== getEditor() && 
-           !currentBlock.tagName.match(/^(P|H[1-6]|DIV|BLOCKQUOTE|UL|OL|LI)$/i)) {
-        currentBlock = currentBlock.parentElement;
-    }
-    
-    if (currentBlock && currentBlock !== getEditor()) {
-        // Insert the new element after the current block
-        currentBlock.parentNode.insertBefore(element, currentBlock.nextSibling);
-    } else {
-        // Fallback: append to editor
-        getEditor().appendChild(element);
+function clearHeadingFormatOnMove() {
+    if (nextHeadingFormat) {
+        nextHeadingFormat = null;
+        reportSelectedTextAttributesIfNecessary();
     }
 }
