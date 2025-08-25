@@ -94,7 +94,7 @@ function computeHeadingStates() {
     }
 
     const range = selection.getRangeAt(0);
-    let element = range.commonAncestorContainer;
+    let element = range.startContainer;
     
     // If it's a text node, get its parent element
     if (element.nodeType === Node.TEXT_NODE) {
