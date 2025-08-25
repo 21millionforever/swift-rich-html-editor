@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4487609B2E5CF3AC00D72081 /* InfomaniakRichHTMLEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 4487609A2E5CF3AC00D72081 /* InfomaniakRichHTMLEditor */; };
 		A768AFBD2C5C0B800055519D /* ScrollableEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFBC2C5C0B800055519D /* ScrollableEditorViewController.swift */; };
 		A768AFC12C5C0EED0055519D /* NotScrollableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFC02C5C0EED0055519D /* NotScrollableViewController.swift */; };
 		A768AFC32C5C32C20055519D /* FixedSizeEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFC22C5C32C20055519D /* FixedSizeEditorViewController.swift */; };
 		F903A5B72C2E8A0D00ABAEA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9792C242C132444007BA48A /* Assets.xcassets */; };
 		F903A5B92C2E8A5600ABAEA0 /* editor.css in Resources */ = {isa = PBXBuildFile; fileRef = F903A5B82C2E8A5600ABAEA0 /* editor.css */; };
-		F90560E22C47B32E0015E813 /* InfomaniakRichHTMLEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F90560E12C47B32E0015E813 /* InfomaniakRichHTMLEditor */; };
 		F91D20092C2ED1CA004A8625 /* ToolbarAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D20082C2ED1CA004A8625 /* ToolbarAction.swift */; };
 		F91D200B2C2EE6C6004A8625 /* UIDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D200A2C2EE6C6004A8625 /* UIDivider.swift */; };
 		F91D200D2C328A6E004A8625 /* EditorViewController+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D200C2C328A6E004A8625 /* EditorViewController+Toolbar.swift */; };
@@ -46,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F90560E22C47B32E0015E813 /* InfomaniakRichHTMLEditor in Frameworks */,
+				4487609B2E5CF3AC00D72081 /* InfomaniakRichHTMLEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,7 +155,7 @@
 			);
 			name = "Example iOS";
 			packageProductDependencies = (
-				F90560E12C47B32E0015E813 /* InfomaniakRichHTMLEditor */,
+				4487609A2E5CF3AC00D72081 /* InfomaniakRichHTMLEditor */,
 			);
 			productName = "Example iOS";
 			productReference = F9792C182C132443007BA48A /* Example iOS.app */;
@@ -186,7 +186,7 @@
 			);
 			mainGroup = F9792C0F2C132443007BA48A;
 			packageReferences = (
-				F90560E02C47B32E0015E813 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */,
+				448760992E5CF3AC00D72081 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */,
 			);
 			productRefGroup = F9792C192C132443007BA48A /* Products */;
 			projectDirPath = "";
@@ -441,20 +441,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F90560E02C47B32E0015E813 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */ = {
+		448760992E5CF3AC00D72081 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:Infomaniak/swift-rich-html-editor.git";
+			repositoryURL = "https://github.com/21millionforever/swift-rich-html-editor.git";
 			requirement = {
-				branch = main;
+				branch = headings;
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F90560E12C47B32E0015E813 /* InfomaniakRichHTMLEditor */ = {
+		4487609A2E5CF3AC00D72081 /* InfomaniakRichHTMLEditor */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F90560E02C47B32E0015E813 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */;
+			package = 448760992E5CF3AC00D72081 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */;
 			productName = InfomaniakRichHTMLEditor;
 		};
 /* End XCSwiftPackageProductDependency section */

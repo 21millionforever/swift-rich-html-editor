@@ -1,13 +1,13 @@
 {
-  "originHash" : "fec33e31a0db89d6b395721c853f0ef51e23853df6f52b5209e7b75608d50ac3",
+  "originHash" : "06dca1e8c1d2bf2746a709ea4efa10b8b82559bdf9a7bf9fbdf1816cce1af961",
   "pins" : [
     {
       "identity" : "swift-rich-html-editor",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:Infomaniak/swift-rich-html-editor.git",
+      "location" : "https://github.com/21millionforever/swift-rich-html-editor.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "eba94eddbb0a0e57ee78227ef790e7ecc02148ce"
+        "branch" : "headings",
+        "revision" : "7427116d8cffcf1934d1ada2877d17451e80478f"
       }
     }
   ],
