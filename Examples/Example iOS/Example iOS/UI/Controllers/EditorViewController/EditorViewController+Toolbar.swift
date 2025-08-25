@@ -133,6 +133,12 @@ extension EditorViewController {
             editor.orderedList()
         case .unorderedList:
             editor.unorderedList()
+        case .heading1:
+            editor.heading1()
+        case .heading2:
+            editor.heading2()
+        case .heading3:
+            editor.heading3()
         case .justifyFull:
             editor.justify(.full)
         case .justifyLeft:

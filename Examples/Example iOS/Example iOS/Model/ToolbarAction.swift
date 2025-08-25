@@ -16,7 +16,7 @@ import UIKit
 
 enum ToolbarAction: Int {
     case dismissKeyboard, bold, italic, underline, strikethrough, link, toggleSubscript, toggleSuperscript, orderedList,
-         unorderedList, justifyFull, justifyLeft, justifyCenter, justifyRight, fontName, fontSize, foregroundColor,
+         unorderedList, heading1, heading2, heading3, justifyFull, justifyLeft, justifyCenter, justifyRight, fontName, fontSize, foregroundColor,
          backgroundColor, outdent, indent, undo, redo, removeFormat
 
     static let actionGroups: [[Self]] = [
@@ -25,6 +25,7 @@ enum ToolbarAction: Int {
         [.link],
         [.toggleSubscript, .toggleSuperscript],
         [.orderedList, .unorderedList],
+        [.heading1, .heading2, .heading3],
         [.justifyFull, .justifyLeft, .justifyCenter, .justifyRight],
         [.fontName, .fontSize],
         [.foregroundColor, .backgroundColor],
@@ -55,6 +56,12 @@ enum ToolbarAction: Int {
             "list.number"
         case .unorderedList:
             "list.star"
+        case .heading1:
+            "h1.square"
+        case .heading2:
+            "h2.square"
+        case .heading3:
+            "h3.square"
         case .justifyFull:
             "text.justify"
         case .justifyLeft:
@@ -106,6 +113,12 @@ enum ToolbarAction: Int {
             return textAttributes.hasOrderedList
         case .unorderedList:
             return textAttributes.hasUnorderedList
+        case .heading1:
+            return textAttributes.hasHeading1
+        case .heading2:
+            return textAttributes.hasHeading2
+        case .heading3:
+            return textAttributes.hasHeading3
         case .justifyFull:
             return textAttributes.textJustification == .full
         case .justifyLeft:

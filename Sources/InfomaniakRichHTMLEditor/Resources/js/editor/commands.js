@@ -44,3 +44,71 @@ function setReadOnly(isReadOnly) {
     const editor = getEditor();
     editor.contentEditable = !isReadOnly;
 }
+
+/**
+ * Toggles heading formatting for the current selection or insertion point.
+ * Unlike formatBlock, this function toggles heading on/off like bold does.
+ *
+ * @param {string} headingTag - The heading tag (h1, h2, or h3)
+ */
+function toggleHeading(headingTag) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const currentHeading = getCurrentHeading(range);
+    
+    if (currentHeading && currentHeading.toLowerCase() === headingTag.toLowerCase()) {
+        // Remove heading formatting (toggle off)
+        removeHeadingFormatting(range);
+    } else {
+        // Apply heading formatting (toggle on)
+        applyHeadingFormatting(range, headingTag);
+    }
+    
+    reportSelectedTextAttributesIfNecessary();
+}
+
+/**
+ * Gets the current heading tag at the selection/insertion point
+ */
+function getCurrentHeading(range) {
+    let element = range.commonAncestorContainer;
+    
+    // If it's a text node, get its parent element
+    if (element.nodeType === Node.TEXT_NODE) {
+        element = element.parentElement;
+    }
+
+    // Walk up the DOM tree to find heading elements
+    while (element && element !== getEditor()) {
+        const tagName = element.tagName ? element.tagName.toLowerCase() : '';
+        if (tagName.match(/^h[1-6]$/)) {
+            return tagName;
+        }
+        element = element.parentElement;
+    }
+
+    return null;
+}
+
+/**
+ * Applies heading formatting to the current line/selection
+ */
+function applyHeadingFormatting(range, headingTag) {
+    // If there's no selection, just set the formatting for future typing
+    if (range.collapsed) {
+        document.execCommand('formatBlock', false, headingTag);
+    } else {
+        // For selections, apply to the entire line(s) containing the selection
+        document.execCommand('formatBlock', false, headingTag);
+    }
+}
+
+/**
+ * Removes heading formatting from the current line/selection
+ */
+function removeHeadingFormatting(range) {
+    // Convert back to normal paragraph
+    document.execCommand('formatBlock', false, 'p');
+}

@@ -50,9 +50,9 @@ final class JavaScriptManager {
         evaluate(function: execCommand)
     }
 
-    func execFormatBlockCommand(_ tagName: String) {
-        let formatBlockCommand = JavaScriptFunction.execCommand(command: "formatBlock", argument: tagName)
-        evaluate(function: formatBlockCommand)
+    func toggleHeading(_ headingTag: String) {
+        let toggleHeadingCommand = JavaScriptFunction.toggleHeading(headingTag: headingTag)
+        evaluate(function: toggleHeadingCommand)
     }
 
     func addLink(text: String?, path: String) {

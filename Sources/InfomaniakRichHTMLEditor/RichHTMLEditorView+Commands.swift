@@ -61,19 +61,19 @@ public extension RichHTMLEditorView {
         execCommand(.unorderedList)
     }
 
-    /// Formats the current selection or at the insertion point as a heading level 1.
+    /// Toggles heading level 1 formatting for the current selection or at the insertion point.
     func heading1() {
-        execFormatBlockCommand("h1")
+        javaScriptManager.toggleHeading("h1")
     }
 
-    /// Formats the current selection or at the insertion point as a heading level 2.
+    /// Toggles heading level 2 formatting for the current selection or at the insertion point.
     func heading2() {
-        execFormatBlockCommand("h2")
+        javaScriptManager.toggleHeading("h2")
     }
 
-    /// Formats the current selection or at the insertion point as a heading level 3.
+    /// Toggles heading level 3 formatting for the current selection or at the insertion point.
     func heading3() {
-        execFormatBlockCommand("h3")
+        javaScriptManager.toggleHeading("h3")
     }
 
     /// Creates a new link for the current selection or at the insertion point.
@@ -162,9 +162,5 @@ public extension RichHTMLEditorView {
 
     private func execCommand(_ command: ExecCommand, argument: Sendable? = nil) {
         javaScriptManager.execCommand(command, argument: argument)
-    }
-    
-    private func execFormatBlockCommand(_ tagName: String) {
-        javaScriptManager.execFormatBlockCommand(tagName)
     }
 }

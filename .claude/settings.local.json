@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(swift build)",
-      "Bash(xcodebuild:*)"
+      "Bash(xcodebuild:*)",
+      "WebSearch",
+      "Bash(timeout 30 xcodebuild:*)"
     ],
     "deny": [],
     "ask": []
