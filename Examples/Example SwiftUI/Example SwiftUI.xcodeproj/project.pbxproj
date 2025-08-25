@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		448760A42E5D174100D72081 /* InfomaniakRichHTMLEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 448760A32E5D174100D72081 /* InfomaniakRichHTMLEditor */; };
 		A768AFC72C5C35500055519D /* ScrollableEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFC62C5C35500055519D /* ScrollableEditorView.swift */; };
 		A768AFC92C5C36090055519D /* NotScrollableEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFC82C5C36090055519D /* NotScrollableEditorView.swift */; };
 		A768AFCC2C5C37210055519D /* FixedSizeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFCB2C5C37210055519D /* FixedSizeEditorView.swift */; };
-		F90560E82C47B8830015E813 /* InfomaniakRichHTMLEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F90560E72C47B8830015E813 /* InfomaniakRichHTMLEditor */; };
 		F91EA2492C3D12B7007489BD /* Example_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91EA2482C3D12B7007489BD /* Example_SwiftUIApp.swift */; };
 		F91EA24B2C3D12B7007489BD /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91EA24A2C3D12B7007489BD /* RootView.swift */; };
 		F91EA24D2C3D12B8007489BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F91EA24C2C3D12B8007489BD /* Assets.xcassets */; };
@@ -45,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F90560E82C47B8830015E813 /* InfomaniakRichHTMLEditor in Frameworks */,
+				448760A42E5D174100D72081 /* InfomaniakRichHTMLEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +124,7 @@
 			);
 			name = "Example SwiftUI";
 			packageProductDependencies = (
-				F90560E72C47B8830015E813 /* InfomaniakRichHTMLEditor */,
+				448760A32E5D174100D72081 /* InfomaniakRichHTMLEditor */,
 			);
 			productName = "Example SwiftUI";
 			productReference = F91EA2452C3D12B7007489BD /* Example SwiftUI.app */;
@@ -155,7 +155,7 @@
 			);
 			mainGroup = F91EA23C2C3D12B7007489BD;
 			packageReferences = (
-				F98F1E3B2C3E8F77007845A8 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */,
+				448760A22E5D174100D72081 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */,
 			);
 			productRefGroup = F91EA2462C3D12B7007489BD /* Products */;
 			projectDirPath = "";
@@ -315,7 +315,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Example SwiftUI/Example_SwiftUI.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 864VDCS2QY;
+				DEVELOPMENT_TEAM = DQTMK46VJQ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -353,7 +353,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Example SwiftUI/Example_SwiftUI.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 864VDCS2QY;
+				DEVELOPMENT_TEAM = DQTMK46VJQ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -407,20 +407,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F98F1E3B2C3E8F77007845A8 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */ = {
+		448760A22E5D174100D72081 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Infomaniak/swift-rich-html-editor";
+			repositoryURL = "https://github.com/21millionforever/swift-rich-html-editor.git";
 			requirement = {
-				branch = main;
+				branch = headings2;
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F90560E72C47B8830015E813 /* InfomaniakRichHTMLEditor */ = {
+		448760A32E5D174100D72081 /* InfomaniakRichHTMLEditor */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F98F1E3B2C3E8F77007845A8 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */;
+			package = 448760A22E5D174100D72081 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */;
 			productName = InfomaniakRichHTMLEditor;
 		};
 /* End XCSwiftPackageProductDependency section */

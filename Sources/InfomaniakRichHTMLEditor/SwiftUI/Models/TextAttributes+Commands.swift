@@ -60,6 +60,21 @@ public extension TextAttributes {
     }
 
     /// Creates a new link for the current selection or at the insertion point.
+
+    /// Applies Heading 1 to the current block.
+    func heading1() {
+        editor?.heading1()
+    }
+
+    /// Applies Heading 2 to the current block.
+    func heading2() {
+        editor?.heading2()
+    }
+
+    /// Applies Heading 3 to the current block.
+    func heading3() {
+        editor?.heading3()
+    }
     ///
     /// - Parameters:
     ///   - url: The destination of the link, it is the value of the `href` attribute.

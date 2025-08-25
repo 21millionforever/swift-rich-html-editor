@@ -31,6 +31,10 @@ public final class TextAttributes: ObservableObject {
     @Published public private(set) var hasLink = false
     @Published public private(set) var textJustification: TextJustification?
 
+    @Published public private(set) var hasH1 = false
+    @Published public private(set) var hasH2 = false
+    @Published public private(set) var hasH3 = false
+
     @Published public private(set) var fontName = ""
     @Published public private(set) var fontSize: Int?
 
@@ -53,6 +57,10 @@ public final class TextAttributes: ObservableObject {
 
         hasLink = uiTextAttributes.hasLink
         textJustification = uiTextAttributes.textJustification
+
+        hasH1 = uiTextAttributes.hasH1
+        hasH2 = uiTextAttributes.hasH2
+        hasH3 = uiTextAttributes.hasH3
 
         fontName = uiTextAttributes.fontName
         fontSize = uiTextAttributes.fontSize

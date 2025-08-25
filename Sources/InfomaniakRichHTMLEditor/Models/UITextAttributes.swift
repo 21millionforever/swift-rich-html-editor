@@ -31,6 +31,10 @@ public struct UITextAttributes: Codable, Sendable {
     public var hasLink = false
     public var textJustification: TextJustification?
 
+    public var hasH1 = false
+    public var hasH2 = false
+    public var hasH3 = false
+
     public var fontName = ""
     public var fontSize: Int? {
         return Int(rawFontSize)

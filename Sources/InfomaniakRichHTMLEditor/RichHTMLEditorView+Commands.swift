@@ -145,6 +145,33 @@ public extension RichHTMLEditorView {
         }
     }
 
+    /// Toggles Heading 1 for the current block. Behaves like bold but applies H1 instead.
+    func heading1() {
+        if selectedTextAttributes.hasH1 {
+            execCommand(.formatBlock, argument: "<p>")
+        } else {
+            execCommand(.formatBlock, argument: "<h1>")
+        }
+    }
+
+    /// Toggles Heading 2 for the current block. Behaves like bold but applies H2 instead.
+    func heading2() {
+        if selectedTextAttributes.hasH2 {
+            execCommand(.formatBlock, argument: "<p>")
+        } else {
+            execCommand(.formatBlock, argument: "<h2>")
+        }
+    }
+
+    /// Toggles Heading 3 for the current block. Behaves like bold but applies H3 instead.
+    func heading3() {
+        if selectedTextAttributes.hasH3 {
+            execCommand(.formatBlock, argument: "<p>")
+        } else {
+            execCommand(.formatBlock, argument: "<h3>")
+        }
+    }
+
     private func execCommand(_ command: ExecCommand, argument: Sendable? = nil) {
         javaScriptManager.execCommand(command, argument: argument)
     }

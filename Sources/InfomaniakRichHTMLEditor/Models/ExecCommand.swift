@@ -31,6 +31,7 @@ enum ExecCommand: String, CaseIterable, Sendable {
     case fontSize
     case backgroundColor = "backColor"
     case foregroundColor = "foreColor"
+    case formatBlock
 
     // Commands that return nothing
     case removeFormat
