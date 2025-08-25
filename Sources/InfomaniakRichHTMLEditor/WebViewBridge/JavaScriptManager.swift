@@ -50,6 +50,11 @@ final class JavaScriptManager {
         evaluate(function: execCommand)
     }
 
+    func execFormatBlockCommand(_ tagName: String) {
+        let formatBlockCommand = JavaScriptFunction.execCommand(command: "formatBlock", argument: tagName)
+        evaluate(function: formatBlockCommand)
+    }
+
     func addLink(text: String?, path: String) {
         let createLink = JavaScriptFunction.createLink(url: path, text: text)
         evaluate(function: createLink)

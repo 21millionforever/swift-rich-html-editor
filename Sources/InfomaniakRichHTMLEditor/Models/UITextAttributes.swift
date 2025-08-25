@@ -27,6 +27,9 @@ public struct UITextAttributes: Codable, Sendable {
     public var hasSuperscript = false
     public var hasOrderedList = false
     public var hasUnorderedList = false
+    public var hasHeading1 = false
+    public var hasHeading2 = false
+    public var hasHeading3 = false
 
     public var hasLink = false
     public var textJustification: TextJustification?

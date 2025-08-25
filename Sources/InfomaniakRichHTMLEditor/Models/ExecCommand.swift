@@ -25,6 +25,9 @@ enum ExecCommand: String, CaseIterable, Sendable {
     case justifyCenter
     case justifyRight
     case justifyFull
+    case heading1
+    case heading2
+    case heading3
 
     // Commands that return a value
     case fontName

@@ -64,6 +64,11 @@ function getTextAttributesFromValueCommands(textAttributes) {
 function getTextAttributesFromCustomCommands(textAttributes) {
     textAttributes["hasLink"] = hasLink();
     textAttributes["textJustification"] = computeTextJustification();
+    
+    const headingStates = computeHeadingStates();
+    textAttributes["hasHeading1"] = headingStates.h1;
+    textAttributes["hasHeading2"] = headingStates.h2;
+    textAttributes["hasHeading3"] = headingStates.h3;
 }
 
 function computeTextJustification() {
@@ -80,5 +85,35 @@ function computeTextJustification() {
         }
     }
     return null;
+}
+
+function computeHeadingStates() {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) {
+        return { h1: false, h2: false, h3: false };
+    }
+
+    const range = selection.getRangeAt(0);
+    let element = range.commonAncestorContainer;
+    
+    // If it's a text node, get its parent element
+    if (element.nodeType === Node.TEXT_NODE) {
+        element = element.parentElement;
+    }
+
+    // Walk up the DOM tree to find heading elements
+    while (element && element !== getEditor()) {
+        const tagName = element.tagName ? element.tagName.toLowerCase() : '';
+        if (tagName === 'h1') {
+            return { h1: true, h2: false, h3: false };
+        } else if (tagName === 'h2') {
+            return { h1: false, h2: true, h3: false };
+        } else if (tagName === 'h3') {
+            return { h1: false, h2: false, h3: true };
+        }
+        element = element.parentElement;
+    }
+
+    return { h1: false, h2: false, h3: false };
 }
 

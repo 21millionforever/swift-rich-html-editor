@@ -59,6 +59,21 @@ public extension TextAttributes {
         editor?.unorderedList()
     }
 
+    /// Formats the current selection or at the insertion point as a heading level 1.
+    func heading1() {
+        editor?.heading1()
+    }
+
+    /// Formats the current selection or at the insertion point as a heading level 2.
+    func heading2() {
+        editor?.heading2()
+    }
+
+    /// Formats the current selection or at the insertion point as a heading level 3.
+    func heading3() {
+        editor?.heading3()
+    }
+
     /// Creates a new link for the current selection or at the insertion point.
     ///
     /// - Parameters:

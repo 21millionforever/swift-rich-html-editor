@@ -27,6 +27,9 @@ public final class TextAttributes: ObservableObject {
     @Published public private(set) var hasSuperscript = false
     @Published public private(set) var hasOrderedList = false
     @Published public private(set) var hasUnorderedList = false
+    @Published public private(set) var hasHeading1 = false
+    @Published public private(set) var hasHeading2 = false
+    @Published public private(set) var hasHeading3 = false
 
     @Published public private(set) var hasLink = false
     @Published public private(set) var textJustification: TextJustification?
@@ -50,6 +53,9 @@ public final class TextAttributes: ObservableObject {
         hasSuperscript = uiTextAttributes.hasSuperscript
         hasOrderedList = uiTextAttributes.hasOrderedList
         hasUnorderedList = uiTextAttributes.hasUnorderedList
+        hasHeading1 = uiTextAttributes.hasHeading1
+        hasHeading2 = uiTextAttributes.hasHeading2
+        hasHeading3 = uiTextAttributes.hasHeading3
 
         hasLink = uiTextAttributes.hasLink
         textJustification = uiTextAttributes.textJustification
