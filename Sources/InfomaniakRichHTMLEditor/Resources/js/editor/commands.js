@@ -85,9 +85,27 @@ function toggleHeading(tag) {
         execCommand("formatBlock", "<p>");
         return;
     }
+    // Insert a new empty heading block and move caret
+    insertHeadingAfterCurrentBlock(desiredTag, range);
+    // Mark that the next input should enforce this heading on the editing engine
+    try { window._ikPendingHeadingTag = desiredTag; } catch (_) {}
+    reportSelectedTextAttributesIfNecessary();
+}
 
-    // Insert a new empty heading block and move caret inside a text node.
-    // If the closest block is the editor itself (empty editor) insert INSIDE the editor.
+function getClosestBlockElementFromNode(node) {
+    if (!node) { return null; }
+    let el = (node.nodeType === Node.ELEMENT_NODE) ? node : node.parentNode;
+    while (el && el !== document) {
+        const tag = el.tagName;
+        if (["P", "DIV", "H1", "H2", "H3", "H4", "H5", "H6", "LI", "BLOCKQUOTE"].includes(tag)) {
+            return el;
+        }
+        el = el.parentNode;
+    }
+    return null;
+}
+
+function insertHeadingAfterCurrentBlock(desiredTag, range) {
     const editor = getEditor();
     const blockElement = getClosestBlockElementFromNode(range.startContainer) || editor;
     const newHeading = document.createElement(desiredTag);
@@ -124,20 +142,4 @@ function toggleHeading(tag) {
 
     // Place caret inside the heading's text node so typing stays within the H tag
     setCaretAtElement(textNode, 0);
-    // Mark that the next input should enforce this heading on the editing engine
-    try { window._ikPendingHeadingTag = desiredTag; } catch (_) {}
-    reportSelectedTextAttributesIfNecessary();
-}
-
-function getClosestBlockElementFromNode(node) {
-    if (!node) { return null; }
-    let el = (node.nodeType === Node.ELEMENT_NODE) ? node : node.parentNode;
-    while (el && el !== document) {
-        const tag = el.tagName;
-        if (["P", "DIV", "H1", "H2", "H3", "H4", "H5", "H6", "LI", "BLOCKQUOTE"].includes(tag)) {
-            return el;
-        }
-        el = el.parentNode;
-    }
-    return null;
 }

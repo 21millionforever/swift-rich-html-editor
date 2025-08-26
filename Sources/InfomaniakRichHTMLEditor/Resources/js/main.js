@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
     editor.addEventListener("beforeinput", () => {
         ensurePendingHeadingApplied();
     });
+    editor.addEventListener("input", () => {
+        // Ensure the pending heading is applied even if the UA modified the DOM post-input
+        ensurePendingHeadingApplied();
+    });
 });
 
 function ensurePendingHeadingApplied() {
